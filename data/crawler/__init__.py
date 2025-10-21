@@ -1,1 +1,2 @@
-from crawler import Crawler
+from .crawler import Crawler
+print('Crawler is imported')

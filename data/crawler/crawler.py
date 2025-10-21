@@ -1,6 +1,6 @@
-class Crawler:
-    def __init__(self) -> None:
-        pass
+import requests
 
-    def crawl(stlf, htmlString: str) -> None:
-        pass
+class Crawler:
+    def Crawl(self, url: str) -> requests.Response:
+        response = requests.get(url)
+        return response
