@@ -77,8 +77,3 @@ class CafeFRawJson:
         Data = StockDataHeader.from_json(data['Data'])
         return cls(Data, data['Message'], data['Success'])
 
-class Stock:
-    def __init__(self, id: str, name: str, stock_data: list[StockData]) -> None:
-        self.id = id
-        self.name = name
-        self.stock_data = stock_data
