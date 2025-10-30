@@ -27,8 +27,12 @@ class LinearRegression:
                 self.cost_hist.append(self._cost(y, y_pred))
 
     @property
-    def coeff_(self):
+    def _coef(self):
         return self.weights
+
+    @property
+    def _cost_hist(self):
+        return self.cost_hist
 
     def predict(self, X):
         return X @ self.weights

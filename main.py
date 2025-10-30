@@ -16,22 +16,26 @@ def main():
         [4, 5, 6],
         [5, 6, 7],
         [6, 7, 8],
-        [7, 8, 9]
+        [7, 8, 9],
+        [8, 9, 10],
+        [9, 10, 11],
+        [10, 11, 12]
     ])
     
     x_test = np.array([
-        [10, 11, 12],
-        [15, 16, 17],
         [-10,11,12],
-        [90,80,100]
+        [90,80,100],
+        [111,1231,19],
+        [77, 22, 123],
+        [178,31,131],
+        [90,21,231]
     ])
     y_test = np.array([_transform(x) for x in x_test])
     y = np.array([_transform(x) for x in X])
-    model = LinearRegression(iters=200000, lr = 0.01)
+    model = LinearRegression(iters=10000, lr = 0.01)
     model.fit(X, y)
     y_pred = model.predict(x_test)
-    print(y_test)
-    print(y_pred)
+    print(model._coef)
     mae = mean_absolute_error(y_test, y_pred)
     mse = mean_squared_error(y_test, y_pred)
     rmse = root_mean_squared_error(y_test, y_pred)
