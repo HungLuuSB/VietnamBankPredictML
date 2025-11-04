@@ -10,3 +10,5 @@ The model will be built from scratch using only Python's numpy and pandas librar
 
 ## Credits
 Team Leader: Luu Thai Hung.
+
+## Version: 2.0.0
