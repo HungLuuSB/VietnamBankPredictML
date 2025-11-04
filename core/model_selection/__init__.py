@@ -1,2 +1,0 @@
-from .polynomial_regression import PolynomialRegression
-from .linear_regression import LinearRegression
