@@ -1,0 +1,23 @@
+project:
+  target_stock: "VCB"
+
+  prediction_horizon_days: 5
+
+  start_date: "2015-01-01"
+  end_date: "2025-11-05"
+
+data_sources:
+  vn_stocks:
+    - "VCB"
+    - "BID"
+    - "CTG"
+    - "TCB"
+
+  global_assets:
+    "^GSPC": "GSPC"
+    "^DJI": "DJI"
+    "GC=F": "Gold"
+    "CL=F": "CrudeOil"
+
+database:
+  uri: "sqlite:///data/finance_data.db"
