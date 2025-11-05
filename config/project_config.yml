@@ -3,8 +3,8 @@ project:
 
   prediction_horizon_days: 5
 
-  start_date: "2015-01-01"
-  end_date: "2025-11-05"
+  start_date: "2010-01-01"
+  end_date: "2026-01-01"
 
 data_sources:
   vn_stocks:

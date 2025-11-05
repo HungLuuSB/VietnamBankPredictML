@@ -3,23 +3,19 @@ from ..data_ingestion.storage import SQLStorage
 from loguru import logger
 from .preprocessing import align_and_fill_data
 from . import transformers as tf
-TARGET_STOCK = "VCB"
 
-GLOBAL_ASSETS = {
-    '^GSPC': 'SP500',      # S&P 500
-    '^DJI': 'DowJones',    # Dow Jones
-    'GC=F': 'Gold',        # Vàng
-    'CL=F': 'CrudeOil'     # Dầu thô
-}
+from src.utils.config_loader import config
 
-START_DATE = "2020-01-01"
-END_DATE = "2025-11-04"
+TARGET_STOCK = config["project"]["target_stock"]
+GLOBAL_ASSETS = config["data_sources"]["global_assets"]
+START_DATE = config["project"]["start_date"]
+END_DATE = config["project"]["end_date"]
 
-PREDICTION_HORIZON_DAYS = 5
+PREDICTION_HORIZON_DAYS = config["project"]["prediction_horizon_days"]
 
 def build_features_table() -> pd.DataFrame:
     logger.info(f"[feature_engineering] Starting feature engineering pipeline...")
-    storage = SQLStorage()
+    storage = SQLStorage(db_uri=config["database"]["uri"])
     
     df_target = storage.load_data(TARGET_STOCK, start_date=START_DATE, end_date=END_DATE)
     if df_target is None or df_target.empty:
@@ -46,8 +42,8 @@ def build_features_table() -> pd.DataFrame:
     df_filled['returns_1d'] = tf.percentage_change(base_price, periods=1)
     df_filled['lag_1d'] = tf.lag_features(base_price, lag=1)
     
-    if 'GSPC_close' in df_filled:
-        df_filled['gspc_lag_1d'] = tf.lag_features(pd.Series(df_filled['GSPC_close']), lag=1)
+    if '^GSPC_close' in df_filled:
+        df_filled['gspc_lag_1d'] = tf.lag_features(pd.Series(df_filled['^GSPC_close']), lag=1)
 
     df_filled['target_price'] = tf.target_variable(
         base_price, 

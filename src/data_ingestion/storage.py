@@ -7,12 +7,12 @@ from sqlalchemy import create_engine, Engine
 from sqlalchemy.exc import SQLAlchemyError
 
 class SQLStorage:
-    def __init__(self, db_uir: str = "sqlite:///data/finance_data.db") -> None:
+    def __init__(self, db_uri: str = "sqlite:///data/finance_data.db") -> None:
         Path("data").mkdir(parents=True, exist_ok=True)
-        logger.info(f"[sqlstorage] Attempting to create SQLite storage at {db_uir}...")
+        logger.info(f"[sqlstorage] Attempting to create SQLite storage at {db_uri}...")
         try:
-            self.engine: Engine = create_engine(db_uir)
-            logger.success(f"[sqlstorage] Successfully created SQLite storage at {db_uir}.")
+            self.engine: Engine = create_engine(db_uri)
+            logger.success(f"[sqlstorage] Successfully created SQLite storage at {db_uri}.")
         except Exception as e:
             logger.error(f"[sqlstorage] Encounterd error(s) while creating SQLAlchemy Engine: {e}")
             raise

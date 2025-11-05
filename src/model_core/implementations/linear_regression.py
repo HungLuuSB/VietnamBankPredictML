@@ -1,34 +1,49 @@
 import numpy as np
 from ..base_model import BaseModel
 from .. import metrics
+from loguru import logger
 class LinearRegression(BaseModel):
-    def __init__(self, lr: float = 0.1, fit_intercept: bool = True, iters: int = 10000) -> None:
+    def __init__(self, lr: float = 0.1, fit_intercept: bool = True, iters: int = 10000, tol: float = 1e-3, patience: int = 10) -> None:
         self.lr = lr
         self.iters = iters
+        self.tol = tol
+        self.patience = patience
         self.fit_intercept = fit_intercept
         self.weights = None
+        self.bias = None
         self.cost_hist = []
 
-    def _grad(self, w, x):
-        return x * w
-
-    def _cost(self, y_true: np.ndarray, y_pred: np.ndarray):
-        return np.mean((y_pred - y_true) ** 2) / 2
-
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:
-        m, n = X.shape
-        self.weights = np.zeros(n)
+        n_samples, n_features = X.shape
+        self.weights = np.zeros(n_features)
+        self.bias = 0.0
+        best_loss = np.inf
+        patience_counter = 0
         for epoch in range(self.iters):
-            y_pred = X @ self.weights
-            error = y_pred - y
-            grad = X.T @ error / m
-            self.weights -= self.lr * grad
-            
+            y_pred = self.predict(X)
+            dw = (1 / n_samples) * np.dot(X.T, (y_pred - y))
+            db = (1 / n_samples) * np.sum(y_pred - y)
+            self.weights -= self.lr * dw
+            self.bias -= self.lr * db
             if epoch % 50 == 0:
-                self.cost_hist.append(self._cost(y, y_pred))
+                loss = metrics.mean_squared_error(y, y_pred)
+                logger.debug(f"Iteration {epoch+1}/{self.iters}, Loss (MSE): {loss:.4f}")
+                self.cost_hist.append(loss)
+                loss_change = best_loss - loss
+                if loss_change > self.tol:
+                    best_loss = loss
+                    patience_counter = 0
+                else:
+                    patience_counter +=1
+
+                if patience_counter >= self.patience:
+                    logger.debug(f"Model Training: Early Stopping Encountered")
+                    break
 
     def predict(self, X) -> np.ndarray:
-        return X @ self.weights
+        if self.weights is None or self.bias is None:
+            raise Exception("Model has not yet been build. Build the model first by calling '.fit()' with some data.")
+        return np.dot(X, self.weights) + self.bias
     
     def evaluate(self, X_test: np.ndarray, y_test: np.ndarray) -> dict:
         y_pred = self.predict(X_test)
@@ -41,20 +56,12 @@ class LinearRegression(BaseModel):
     
     def save_model(self, filepath: str) -> None:
         print(f"Saving model into {filepath}")
-        np.savez(filepath, weights = self.weights) # type: ignore
+        np.savez(filepath, weights = self.weights, bias = self.bias) # type: ignore
 
     def load_model(self, filepath: str) -> None:
         print(f"Loading model from {filepath}")
         data = np.load(filepath)
         self.weights = data['weights']
-
-    @property
-    def _coef(self):
-        return self.weights
-
-    @property
-    def _cost_hist(self):
-        return self.cost_hist
-
+        self.bias = data['bias']
 
 

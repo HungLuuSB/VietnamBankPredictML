@@ -2,23 +2,19 @@ from numpy import log
 from .collectors import VnStockCollector, YFinanceCollector
 from .storage import SQLStorage
 from loguru import logger
+from src.utils.config_loader import config
 
-VN_STOCKS = ['VCB', 'BID', 'CTG', 'TCB']
-GLOBAL_ASSETS = {
-    '^GSPC': 'SP500',      # S&P 500
-    '^DJI': 'DowJones',    # Dow Jones
-    'GC=F': 'Gold',        # Vàng
-    'CL=F': 'CrudeOil'     # Dầu thô
-}
-START_DATE = "2020-01-01"
-END_DATE = "2025-11-04"
+VN_STOCKS = config["data_sources"]["vn_stocks"]
+GLOBAL_ASSETS = config["data_sources"]["global_assets"]
+START_DATE = config["project"]["start_date"]
+END_DATE = config["project"]["end_date"]
 
 def run_data_ingestion_pipeline():
     logger.info(f"[data_ingestion_pipeline] Starting data ingestion process.")
     
     vn_collector = VnStockCollector()
     yf_collector = YFinanceCollector()
-    storage = SQLStorage()
+    storage = SQLStorage(db_uri=config["database"]["uri"])
     
     for ticker in VN_STOCKS:
         df = vn_collector.fetch_stock_data(ticker, START_DATE, END_DATE)
