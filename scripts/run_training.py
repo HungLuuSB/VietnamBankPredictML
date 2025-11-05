@@ -59,9 +59,11 @@ def main():
     
     logger.info(evaluation_results)
     logger.info(f"[linear_regression] Model coefs: {model.weights}, bias: {model.bias}")
+    Path("artifacts").mkdir(parents=True, exist_ok=True)
+    model.save_model(f"artifacts/lr_scratch.npz")
 
 
-    logger.info(f"[scripts/data_ingestion] Finished data ingestion pipeline.")
+    logger.info(f"[scripts/training] Finished model training pipeline.")
 
 if __name__ == "__main__":
     main()

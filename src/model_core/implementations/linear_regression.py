@@ -55,13 +55,24 @@ class LinearRegression(BaseModel):
         }
     
     def save_model(self, filepath: str) -> None:
-        print(f"Saving model into {filepath}")
+        if self.weights is None or self.bias is None:
+            logger.error(f"[linear_regression] Could not save unfitted model.")
+            return
+        logger.info(f"[linear_regression] Saving model into {filepath}")
         np.savez(filepath, weights = self.weights, bias = self.bias) # type: ignore
 
     def load_model(self, filepath: str) -> None:
-        print(f"Loading model from {filepath}")
-        data = np.load(filepath)
-        self.weights = data['weights']
-        self.bias = data['bias']
+        logger.info(f"[linear_regression] Loading model from {filepath}")
+        try:
+            data = np.load(filepath)
+            self.weights = data['weights']
+            self.bias = data['bias'].item()
+            logger.success(f"[linear_regression] Successfully loaded model from {filepath}")
+        except FileNotFoundError:
+            logger.error(f"[linear_regression] Could not find file: {filepath}")
+            raise
+        except KeyError as e:
+            logger.error(f"[linear_regression]: File .npz does not contain enough keys (weights/bias): {e}")
+            raise
 
 
