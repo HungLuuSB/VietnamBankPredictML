@@ -42,8 +42,12 @@ def build_features_table() -> pd.DataFrame:
     df_filled['returns_1d'] = tf.percentage_change(base_price, periods=1)
     df_filled['lag_1d'] = tf.lag_features(base_price, lag=1)
     
-    if '^GSPC_close' in df_filled:
-        df_filled['^gspc_lag_1d'] = tf.lag_features(pd.Series(df_filled['^GSPC_close']), lag=1)
+    #if '^GSPC_close' in df_filled:
+    #    df_filled['^gspc_lag_1d'] = tf.lag_features(pd.Series(df_filled['^GSPC_close']), lag=1)
+
+    for global_asset in GLOBAL_ASSETS:
+        if global_asset in df_filled:
+            df_filled[f'{global_asset.lower()}_lag_1d'] = tf.lag_features(pd.Series(df_filled[f'{global_asset.lower()}_close']), lag=1)
 
     df_filled['target_price'] = tf.target_variable(
         base_price, 
