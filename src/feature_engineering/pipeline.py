@@ -36,7 +36,6 @@ def build_features_table() -> pd.DataFrame:
     df_filled = align_and_fill_data(df)
 
     base_price = pd.Series(df_filled[f"{TARGET_STOCK}_close"])
-    
     df_filled['sma_20'] = tf.simple_moving_average(base_price, window=20)
     df_filled['ema_50'] = tf.exponential_moving_average(base_price, window=50)
     df_filled['returns_1d'] = tf.percentage_change(base_price, periods=1)
@@ -46,7 +45,7 @@ def build_features_table() -> pd.DataFrame:
     #    df_filled['^gspc_lag_1d'] = tf.lag_features(pd.Series(df_filled['^GSPC_close']), lag=1)
 
     for global_asset in GLOBAL_ASSETS:
-        if global_asset in df_filled:
+        if f"{global_asset.lower()}_close" in df_filled:
             df_filled[f'{global_asset.lower()}_lag_1d'] = tf.lag_features(pd.Series(df_filled[f'{global_asset.lower()}_close']), lag=1)
 
     df_filled['target_price'] = tf.target_variable(
@@ -55,9 +54,7 @@ def build_features_table() -> pd.DataFrame:
     )
     df_final = df_filled.dropna()
     logger.success(f"[feature_engineering] Successfully created features with {len(df_final)} line(s).")
-    
     processed_table_name = f"processed_{TARGET_STOCK.lower()}_features"
     storage.save_data(df_final, processed_table_name, if_exists="replace")
     
     return df_final
-    
