@@ -19,6 +19,11 @@ def run_data_ingestion_pipeline():
     for ticker in VN_STOCKS:
         df = vn_collector.fetch_stock_data(ticker, START_DATE, END_DATE)
         storage.save_data(df, table_name=ticker, if_exists="replace")
+    
+    vn_30 = "VN30"
+    df = vn_collector.fetch_stock_data(vn_30, START_DATE, END_DATE)
+    storage.save_data(df, table_name=vn_30, if_exists="replace")
+
 
     for ticker in GLOBAL_ASSETS:
         df = yf_collector.fetch_global_data(ticker, START_DATE, END_DATE)

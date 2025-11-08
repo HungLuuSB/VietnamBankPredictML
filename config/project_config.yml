@@ -17,7 +17,6 @@ data_sources:
     "^GSPC": "GSPC"
     "^DJI": "DJI"
     "GC=F": "Gold"
-    "CL=F": "CrudeOil"
 
 database:
   uri: "sqlite:///data/finance_data.db"

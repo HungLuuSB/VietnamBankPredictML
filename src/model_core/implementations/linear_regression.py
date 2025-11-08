@@ -3,11 +3,12 @@ from ..base_model import BaseModel
 from .. import metrics
 from loguru import logger
 class LinearRegression(BaseModel):
-    def __init__(self, lr: float = 0.1, iters: int = 10000, tol: float = 1e-3, patience: int = 10) -> None:
+    def __init__(self, lr: float = 0.1, iters: int = 10000, tol: float = 1e-3, patience: int = 10, early_stopping: bool = True) -> None:
         self.lr = lr
         self.iters = iters
         self.tol = tol
         self.patience = patience
+        self.early_stopping = early_stopping
         self.weights = None
         self.bias = None
         self.cost_hist = []
@@ -29,6 +30,8 @@ class LinearRegression(BaseModel):
                 logger.debug(f"Iteration {epoch+1}/{self.iters}, Loss (MSE): {loss:.4f}")
                 self.cost_hist.append(loss)
                 loss_change = best_loss - loss
+                if self.early_stopping == False:
+                    continue
                 if loss_change > self.tol:
                     best_loss = loss
                     patience_counter = 0

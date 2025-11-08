@@ -53,7 +53,6 @@ class SQLStorage:
                 query += " WHERE " + " AND ".join(conditions)
                 
             query += ' ORDER BY "date" ASC'
-
             df = pd.read_sql_query(
                 query,
                 con=self.engine,

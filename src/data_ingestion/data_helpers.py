@@ -21,9 +21,6 @@ def get_stock_data(symbol: str, start_date: str | None = None, end_date: str | N
         logger.error(f"Storage has not been initialized yet.")
         return pd.DataFrame()
 
-    if end_date is None:
-        end_date = today()
-    
     return _storage.load_data(table_name=symbol, start_date=start_date, end_date=end_date)
 
 def get_processed_features(symbol: str) -> pd.DataFrame:
