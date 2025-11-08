@@ -3,12 +3,11 @@ from ..base_model import BaseModel
 from .. import metrics
 from loguru import logger
 class LinearRegression(BaseModel):
-    def __init__(self, lr: float = 0.1, fit_intercept: bool = True, iters: int = 10000, tol: float = 1e-3, patience: int = 10) -> None:
+    def __init__(self, lr: float = 0.1, iters: int = 10000, tol: float = 1e-3, patience: int = 10) -> None:
         self.lr = lr
         self.iters = iters
         self.tol = tol
         self.patience = patience
-        self.fit_intercept = fit_intercept
         self.weights = None
         self.bias = None
         self.cost_hist = []
