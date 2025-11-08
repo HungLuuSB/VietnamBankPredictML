@@ -33,7 +33,7 @@ def split_data(df: pd.DataFrame, target_column: str, test_size: float = 0.2):
     logger.success(f"[data_split] Finished splitting data: Train {X_train.shape}, Test {X_test.shape}")
     return X_train, y_train, X_test, y_test
 
-def main():
+def training():
     logger.info(f"[scripts/data_ingestion] Starting data ingestion pipeline.")
     target_stock = config['project']['target_stock']
     processed_table_name = f"processed_{target_stock.lower()}_features"
@@ -44,9 +44,13 @@ def main():
 
     scaler = StandardScaler()
     scaler.fit(X_train)
+    scaler.save_scaler(f"artifacts/{target_stock.lower()}_scaler.npz")
     
     X_train_scaled = scaler.transform(X_train)
     X_test_scaled = scaler.transform(X_test)
+
+    print(X_train_scaled[:5])
+    print(y_train[:5])
     
     model = LinearRegression(lr=0.01, iters=100000)
     
@@ -60,10 +64,10 @@ def main():
     logger.info(evaluation_results)
     logger.info(f"[linear_regression] Model coefs: {model.weights}, bias: {model.bias}")
     Path("artifacts").mkdir(parents=True, exist_ok=True)
-    model.save_model(f"artifacts/lr_scratch.npz")
+    model.save_model(f"artifacts/{target_stock.lower()}_lr_scratch.npz")
 
 
     logger.info(f"[scripts/training] Finished model training pipeline.")
 
 if __name__ == "__main__":
-    main()
+    training()

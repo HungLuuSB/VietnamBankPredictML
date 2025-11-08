@@ -1,7 +1,7 @@
 project:
   target_stock: "VCB"
 
-  prediction_horizon_days: 5
+  prediction_horizon_days: 1
 
   start_date: "2010-01-01"
   end_date: "2026-01-01"

@@ -13,7 +13,6 @@ def main():
     logger.info(f"[scripts/data_ingestion] Starting data ingestion pipeline.")
     run_data_ingestion_pipeline()
     logger.info(f"[scripts/data_ingestion] Finished data ingestion pipeline.")
-    pass
 
 if __name__ == "__main__":
     main()

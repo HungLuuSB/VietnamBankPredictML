@@ -35,17 +35,17 @@ class SQLStorage:
         except Exception as e:
             logger.error(f"[sqlstorage] An error occourred when attempting to save data into {safe_table_name}: {e}")
 
-    def load_data(self, table_name: str, start_date: str, end_date: str) -> pd.DataFrame:
+    def load_data(self, table_name: str, start_date: str | None = None, end_date: str | None = None) -> pd.DataFrame:
         safe_table_name = "".join(c for c in table_name if c.isalnum() or c == '_')
 
         try:
             query = f'SELECT * FROM "{safe_table_name}"'
             conditions = []
             params = {}
-            if start_date:
+            if start_date is not None:
                 conditions.append('"date" >= :start_date')
                 params['start_date'] = start_date
-            if end_date:
+            if end_date is not None:
                 conditions.append('"date" <= :end_date')
                 params['end_date'] = end_date
                 
