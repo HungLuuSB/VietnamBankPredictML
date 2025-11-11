@@ -46,10 +46,23 @@ def process_features(symbol: str) -> pd.DataFrame:
     df_filled['returns_1d'] = tf.percentage_change(base_price, periods=1)
     df_filled['lag_1d'] = tf.lag_features(base_price, lag=1)
     for global_asset in global_assets:
-        if f"{global_asset.lower()}_close" in df_filled:
-            df_filled[f'{global_asset.lower()}_lag_1d'] = tf.lag_features(pd.Series(df_filled[f'{global_asset.lower()}_close']), lag=1)
+        if f"{global_asset}_close" in df_filled:
+            df_filled[f'{global_asset}_lag_1d'] = tf.lag_features(pd.Series(df_filled[f'{global_asset}_close']), lag=1)
+
+    for global_asset in global_assets:
+        if f"{global_asset}_close" in df_filled:
+            df_filled.drop(columns=[f"{global_asset}_close"], inplace=True)
     df_final = df_filled.dropna()
     return df_final
+
+def process_target_variable(symbol: str, df: pd.DataFrame, horizon: int = 1) -> pd.DataFrame:
+    base_price = pd.Series(df[f"{symbol}_close"])
+    df['target_price'] = tf.target_variable(
+        base_price, 
+        horizon=horizon
+    )
+    df.dropna(inplace=True)
+    return df
 
 
 def process_today_features(symbol: str) -> np.ndarray | None:
