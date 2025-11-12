@@ -9,11 +9,13 @@ sys.path.append(str(project_root))
 from src.utils.config_loader import config
 
 def main():
+    host = config["fast_api"]["host"]
+    port = config["fast_api"]["port"]
     logger.info(f"[scripts/run_api] Starting API server...")
     uvicorn.run(
         "src.api_services.main:app",
-        host="0.0.0.0",
-        port=8080,
+        host=host,
+        port=port,
         reload=True
     )
 

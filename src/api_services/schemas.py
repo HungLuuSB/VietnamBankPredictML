@@ -13,8 +13,5 @@ class SearchResult(BaseModel):
     symbol: str
 
 class PredictionMessage(BaseModel):
-    symbol: str
     prediction: float
-    prediction_horizon_days: int
-    prediction_timestamp: datetime
 

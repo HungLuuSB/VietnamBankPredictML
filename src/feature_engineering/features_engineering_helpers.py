@@ -9,9 +9,7 @@ from src.data_ingestion import data_helpers
 try:
     _db_uri = config['database']['uri']
     _storage = SQLStorage(db_uri=_db_uri)
-    logger.info(f"Data Helper: Đã khởi tạo kết nối CSDL tới {_db_uri}")
 except Exception as e:
-    logger.critical(f"Data Helper: Không thể khởi tạo CSDL! Lỗi: {e}")
     _storage = None
 
 def process_features(symbol: str) -> pd.DataFrame:
