@@ -40,7 +40,7 @@ def training():
     
     storage = SQLStorage(db_uri=config['database']['uri'])
     df_features = storage.load_data(processed_table_name, start_date=START_DATE, end_date=END_DATE)
-    X_train, y_train, X_test, y_test = split_data(df_features, target_column="target_price")
+    X_train, y_train, X_test, y_test = split_data(df_features, target_column="target_price", test_size=0.3)
 
     scaler = StandardScaler()
     scaler.fit(X_train)
