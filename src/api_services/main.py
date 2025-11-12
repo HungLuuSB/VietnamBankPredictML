@@ -25,6 +25,8 @@ from src.utils.config_loader import config
 from .schemas import StockDataPoint, SearchResult, PredictionMessage
 from aiokafka import AIOKafkaConsumer
 
+API_URI = config["fast_api"]["api_uri"]
+
 global_artifacts = {}
 
 def load_artifacts():
@@ -84,7 +86,7 @@ def _get_start_date_from_range(range_str: str) -> str | None:
         return None
     return None
 
-@app.get("/api/v1/history/{symbol}", 
+@app.get(f"{API_URI}/history", 
          response_model=list[StockDataPoint],
          tags=["Stock Data"])
 async def get_price_history(
@@ -100,7 +102,7 @@ async def get_price_history(
     df_history = df_history.reset_index()
     return df_history.to_dict("records")
 
-@app.get("/api/v1/search",
+@app.get(f"{API_URI}/search",
          response_model=list[SearchResult],
          tags=["Stock Data"])
 async def search_stocks(q: str = ""):
@@ -113,7 +115,7 @@ async def search_stocks(q: str = ""):
 
     return results
 
-@app.get("/api/v1/predict",
+@app.get(f"{API_URI}/predict",
          response_model=PredictionMessage,
          tags=["Stock Data"])
 async def predict(symbol: str):
