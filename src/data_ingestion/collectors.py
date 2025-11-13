@@ -3,6 +3,8 @@ import yfinance as yf
 from vnstock import Vnstock
 from loguru import logger
 
+from src.data_ingestion import data_helpers
+
 class VnStockCollector:
     def fetch_stock_data(self, symbol: str, start_date: str, end_date: str) -> pd.DataFrame:
         logger.info(f"[vnstock] Retrieving data for {symbol} from {start_date} to {end_date}...")

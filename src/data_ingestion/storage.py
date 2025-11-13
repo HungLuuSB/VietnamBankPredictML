@@ -35,6 +35,7 @@ class SQLStorage:
         except Exception as e:
             logger.error(f"[sqlstorage] An error occourred when attempting to save data into {safe_table_name}: {e}")
 
+
     def load_data(self, table_name: str, start_date: str | None = None, end_date: str | None = None) -> pd.DataFrame:
         safe_table_name = "".join(c for c in table_name if c.isalnum() or c == '_')
 

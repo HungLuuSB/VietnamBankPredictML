@@ -1,3 +1,4 @@
+from numpy import log
 import pandas as pd
 
 from .storage import SQLStorage
