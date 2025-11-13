@@ -1,0 +1,25 @@
+project:
+  vn_stocks:
+    - "VCB"
+    - "BID"
+    - "CTG"
+    - "TCB"
+
+  global_assets:
+    "^GSPC": "GSPC"
+    "^DJI": "DJI"
+    "GC=F": "Gold"
+
+producer:
+  poll_interval: 1
+  kafka_topic: 'raw_ticks_changed'
+
+infrastructure:
+  kafka_server: 'localhost:9092'
+  #hdfs_base_path: 'hdfs:///data/lake'
+  hdfs_base_path: 'file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake'
+  redis_host: 'localhost'
+  redis_port: 6379
+  postgres_url: 'jdbc:postgresql://localhost:5432/stock_db'
+  postgres_user: 'your_user'
+  postgres_pass: 'your_password'
