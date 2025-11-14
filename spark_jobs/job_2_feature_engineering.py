@@ -66,7 +66,7 @@ def run_feature_engineering():
 
     df_targets = df_raw.filter(~col("symbol").isin(["_GSPC", "GC_F", "_DJI"]))
     window_spec_targets = Window.partitionBy("symbol").orderBy("date")
-    
+    df_api_to_save = df_targets
     df_features = df_targets.withColumn("lag_1d", lag("close", 1).over(window_spec_targets))
     df_features = df_features.withColumn(
         "returns_1d", 

@@ -57,6 +57,8 @@ def main():
             regexp_replace(col("symbol"), "[^a-zA-Z0-9]", "_")
         )
 
+        df_spark_cleaned.show(10)
+
         df_spark_cleaned.write \
             .mode("append") \
             .partitionBy("symbol") \
