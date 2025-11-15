@@ -13,15 +13,18 @@ from pyspark.sql.functions import regexp_replace, col
 from pyspark.sql.types import LongType, StructType, StructField, StringType, DoubleType
 from collectors.collectors import VnStockCollector, YFinanceCollector
 
-BASE_PATH = config["infrastructure"]["hdfs_base_path"]
-RAW_PATH = f"{BASE_PATH}/raw_ticks/"
-START_DATE = "2010-01-01"
-END_DATE = date.today().isoformat()
-
-VN_STOCKS = config["project"]["vn_stocks"]
-GLOBAL_ASSETS = config["project"]["global_assets"]
 
 def main():
+    BASE_PATH = config["infrastructure"]["hdfs_base_path"]
+    RAW_PATH = f"{BASE_PATH}/raw_ticks/"
+    START_DATE = "2010-01-01"
+    END_DATE = date.today().isoformat()
+
+    VN_STOCKS = config["project"]["vn_stocks"]
+    GLOBAL_ASSETS = config["project"]["global_assets"]
+    POSTGRES_URL = config["infrastructure"]["postgres_url"]
+    POSTGRES_USER = config["infrastructure"]["postgres_user"]
+    POSTGRES_PASSWORD = config["infrastructure"]["postgres_pass"]
     logger.info(f"[backfill] Starting backfill process from {START_DATE} to {END_DATE}...")
     spark: SparkSession = SparkSession.builder.appName("BackFill").getOrCreate() #type: ignore
     spark.sparkContext.setLogLevel("WARN")
@@ -56,17 +59,27 @@ def main():
             "symbol", 
             regexp_replace(col("symbol"), "[^a-zA-Z0-9]", "_")
         )
-
+        df_spark_cleaned = df_spark_cleaned.withColumn("date", col("date").cast(StringType()))
         df_spark_cleaned.show(10)
 
         df_spark_cleaned.write \
             .mode("append") \
             .partitionBy("symbol") \
             .parquet(RAW_PATH)
+        
+        df_spark_cleaned.write \
+            .format("jdbc") \
+            .option("driver", "org.postgresql.Driver") \
+            .option("url", POSTGRES_URL) \
+            .option("dbtable", "stock_db") \
+            .option("user", POSTGRES_USER) \
+            .option("password", POSTGRES_PASSWORD) \
+            .mode("overwrite") \
+            .save()
 
         logger.info(f"[backfill] Finished writing data for {symbol}")
 
-    
+
     for symbol in VN_STOCKS:
         process_and_write(symbol, vn_col, "VN")
 

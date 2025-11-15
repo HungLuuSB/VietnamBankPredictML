@@ -19,6 +19,7 @@ def run_streaming_ingestion():
     BASE_PATH = str(infra['hdfs_base_path']).strip()
     RAW_PATH = f"{BASE_PATH}/raw_ticks/"
     CHECKPOINT_PATH = f"{BASE_PATH}/checkpoints/kafka_ingestion/"
+    CHECKPOINT_PATH_CONSOLE = f"{BASE_PATH}/checkpoints/kafka_ingestion_console/"
 
     logger.info(f"[streaming_ingestion] Kafka Server: {KAFKA_SERVER}\nTopic: {KAFKA_TOPIC}\n HDFS: {RAW_PATH}\n Checkpoint: {CHECKPOINT_PATH}")
 
@@ -57,12 +58,19 @@ def run_streaming_ingestion():
         .outputMode("append")
         .option("path", RAW_PATH)
         .option("checkpointLocation", CHECKPOINT_PATH)
-        .partitionBy("symbol", "date")
+        .partitionBy("symbol")
         .start()
     )
 
+    query_to_console = df_cleaned.writeStream \
+        .format("console") \
+        .outputMode("append") \
+        .option("checkpointLocation", CHECKPOINT_PATH_CONSOLE) \
+        .start()
+
     logger.info(f"[Job 1] Running... (Waiting for data from Kafka)")
     query.awaitTermination()
+    query_to_console.stop()
 
 if __name__ == "__main__":
     run_streaming_ingestion()

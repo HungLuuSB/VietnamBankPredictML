@@ -19,6 +19,9 @@ def run_feature_engineering():
     RAW_PATH = f"{BASE_PATH}/raw_ticks/"
     PROCESSED_PATH = f"{BASE_PATH}/processed_features/"
     GLOBAL_ASSETS = config["project"]["global_assets"]
+    POSTGRES_URL = config["infrastructure"]["postgres_url"]
+    POSTGRES_USER = config["infrastructure"]["postgres_user"]
+    POSTGRES_PASSWORD = config["infrastructure"]["postgres_pass"]
 
     spark = SparkSession.builder.appName("FeatureEngineering").getOrCreate() #type: ignore
     spark.sparkContext.setLogLevel("ERROR")
@@ -34,7 +37,6 @@ def run_feature_engineering():
         return
 
     fill_window = Window.orderBy("date").rowsBetween(Window.unboundedPreceding, Window.currentRow)
-    
     gspc_window = Window.orderBy("date")
     df_gspc = df_raw.filter(col("symbol") == "_GSPC") \
         .withColumn("GSPC_lag_1d_raw", lag(col("close"), 1).over(gspc_window)) \
@@ -91,16 +93,19 @@ def run_feature_engineering():
     df_final = df_joined.withColumn(
         "target_price", lag("close", -1).over(window_spec_targets)
     )
-
+    
+    df_final.show()
     df_final = df_final.na.drop(subset=[
         "target_price", "lag_1d", "GSPC_lag_1d", "GC_F_lag_1d", "_DJI_lag_1d"
     ])
-    test = df_final.filter(col("symbol") == "VCB")
-    test.orderBy(col("date").desc()).show()
+    df_final.show()
     df_final.write \
         .mode("overwrite") \
         .partitionBy("symbol") \
         .parquet(PROCESSED_PATH)
+
+    
+
     logger.info(f"[feature_engineering] Finished Job 2.")
 
 if __name__ == "__main__":
