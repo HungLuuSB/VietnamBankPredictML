@@ -1,0 +1,3 @@
+v1
+{"path":"file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks/symbol=GC_F/part-00000-9a419f99-cb7c-4a89-bccc-b81332f30ec0.c000.snappy.parquet","size":1769,"isDir":false,"modificationTime":1763659504692,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks/symbol=_DJI/part-00000-6ccb5cb9-3485-4422-8d11-a5e9f10c8e43.c000.snappy.parquet","size":1769,"isDir":false,"modificationTime":1763659504709,"blockReplication":1,"blockSize":33554432,"action":"add"}
