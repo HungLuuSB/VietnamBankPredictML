@@ -1,2 +1,2 @@
 v1
-{"path":"file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks/symbol=GC_F/part-00000-4c516f0a-408c-4a9e-b7d0-bd966e2e9e07.c000.snappy.parquet","size":1768,"isDir":false,"modificationTime":1763659187595,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks/symbol=GC_F/part-00000-a19f0991-e453-4b67-8904-ebd41129d81c.c000.snappy.parquet","size":1769,"isDir":false,"modificationTime":1763701381183,"blockReplication":1,"blockSize":33554432,"action":"add"}
