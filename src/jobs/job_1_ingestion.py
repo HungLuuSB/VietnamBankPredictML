@@ -1,4 +1,7 @@
+#spark-submit     --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0     src/jobs/job_1_ingestion.py
+#psql -U postgres
 import sys
+import re
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -17,6 +20,7 @@ def run():
     try:
         kafka_conf = config['kafka']
         storage_conf = config['storage']
+        db_conf = config['database']
 
         KAFKA_SERVER = kafka_conf['server']
         KAFKA_TOPIC = kafka_conf['topic']
@@ -28,6 +32,49 @@ def run():
     except KeyError as e:
         logger.critical(f"[Ingestion] Configuration error. Missing key: {e}")
         sys.exit(1)
+
+    def process_batch(df, epoch_id):
+        logger.info(f"--- Processing Batch ID: {epoch_id} ---")
+        df.cache()
+        count = df.count()
+        if count == 0:
+            df.unpersist()
+            return
+        try:
+            logger.debug(f"Writing {count} rows to Data Lake...")
+            df.write \
+                .mode("append") \
+                .partitionBy("symbol") \
+                .parquet(RAW_PATH)
+        except Exception as e:
+            logger.error(f"Failed to write to Data Lake: {e}")
+
+        try:
+            stocks_in_batch = [row.symbol for row in df.select("symbol").distinct().collect()]
+            jdbc_url = db_conf['postgres_url']
+            db_props = {
+                "user": db_conf['postgres_user'],
+                "password": db_conf['postgres_pass'],
+                "driver": db_conf['jdbc_driver_path']
+            }
+
+            logger.debug(f"Syncing batch to PostgreSQL for stocks: {stocks_in_batch}")
+
+            for stock in stocks_in_batch:
+                table_name = re.sub(r"[^a-zA-Z0-9]", "", stock).lower()
+                df_stock = df.filter(col("symbol") == stock)
+                df_export = df_stock.select(
+                    "date", "open", "high", "low", "close", "volume"
+                )
+                df_export.write.jdbc(
+                    url=jdbc_url,
+                    table=table_name,
+                    mode="append",
+                    properties=db_props
+                )
+        except Exception as e:
+            logger.error(f"Failed to write to PostgreSQL: {e}")
+        df.unpersist()
     try:
         df_stream = spark.readStream \
             .format("kafka") \
@@ -52,11 +99,9 @@ def run():
     #df_final = df_cleaned.withColumn("date", col("date").cast(StringType()))
     df_final = df_cleaned.withColumn("date", date_format(col("date"), "yyyy-MM-dd"))
     query = df_final.writeStream \
-        .format("parquet") \
-        .outputMode("append") \
+        .foreachBatch(process_batch) \
         .option("path", RAW_PATH) \
         .option("checkpointLocation", CHECKPOINT_PATH) \
-        .partitionBy("symbol") \
         .start()
 
     query_console = df_cleaned.writeStream \

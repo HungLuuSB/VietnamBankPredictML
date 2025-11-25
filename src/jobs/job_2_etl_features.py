@@ -1,3 +1,4 @@
+#spark-submit     --packages org.postgresql:postgresql:42.6.0     src/jobs/job_2_etl_features.py
 import sys
 import re
 from pathlib import Path
@@ -83,6 +84,16 @@ def run():
     for asset_name, df_asset in global_dfs.items():
         df_final = df_final.join(df_asset, on="date", how="left")
 
+
+    w_ffill = Window.partitionBy("symbol").orderBy("date") \
+        .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+    cols_to_ffill = [f"{a}_lag_1d" for a in CLEAN_GLOBAL_ASSETS]
+    
+    for col_name in cols_to_ffill:
+        df_final = df_final.withColumn(col_name, last(col_name, ignorenulls=True).over(w_ffill))
+        df_final = df_final.fillna(0.0, subset=[col_name])
+    
     df_final = df_final.withColumn("target_price", lag("close", -1).over(w_target))
 
     df_final.orderBy(col("date").desc()) \
@@ -97,7 +108,7 @@ def run():
         "driver": db_conf['jdbc_driver_path']
     }
     cols_for_api = ["date", "open", "high", "low", "close", "volume"]
-
+    """
     for symbol in unique_symbols:
         table_name = re.sub(r"[^a-zA-Z0-9]", "", symbol)
         try:
@@ -111,7 +122,7 @@ def run():
             logger.info(f"   + Synced table '{table_name}' ({df_export.count()} rows)")
         except Exception as e:
             logger.error(f"   ! Failed to sync table '{table_name}': {e}")
-
+    """
 
     required_cols_training = ["target_price", "ema_50"] + [f"{a}_lag_1d" for a in CLEAN_GLOBAL_ASSETS]
     df_for_training = df_final.na.drop(subset=required_cols_training)

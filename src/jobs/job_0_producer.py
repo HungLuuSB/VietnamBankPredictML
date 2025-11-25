@@ -1,3 +1,4 @@
+#spark-submit src/jobs/job_0_producer.py
 import time
 import schedule
 import sys
@@ -51,7 +52,7 @@ def job_cycle():
     logger.info("--- Cycle Finished ---")
 
 def run():
-    seconds = 1
+    seconds = 10
     logger.info(f"[Job 0] Producer started. Polling every {seconds} minutes.")
     job_cycle()
     schedule.every(seconds).seconds.do(job_cycle)
