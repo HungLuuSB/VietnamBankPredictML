@@ -8644,3 +8644,666 @@ LINE 3:             FROM stock_predictions
 2025-11-25 16:16:47.311 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
 2025-11-25 16:16:47.369 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
 2025-11-25 16:17:35.843 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 01:51:47.713 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 01:51:47.713 | INFO     | __main__:run:18 - [Ingestion] Initializing Streaming Ingestion Pipeline...
+2025-11-28 01:51:47.713 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Ingestion_Streaming
+2025-11-28 01:51:47.714 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 01:51:51.022 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Ingestion_Streaming' started successfully.
+2025-11-28 01:51:51.023 | INFO     | __main__:run:30 - [Ingestion] Configuration loaded. Kafka Server: localhost:9092, Topic: stock_ticks_v1
+2025-11-28 01:51:51.023 | INFO     | __main__:run:31 - [Ingestion] Data Lake Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 01:51:53.142 | INFO     | __main__:run:86 - [Ingestion] Successfully connected to Kafka broker.
+2025-11-28 01:51:54.309 | INFO     | __main__:run:113 - [Ingestion] Pipeline started. Waiting for incoming data streams...
+2025-11-28 01:51:56.977 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 0 ---
+2025-11-28 01:54:42.782 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 01:54:49.994 | INFO     | __main__:run:56 - [Job 0] Producer started. Polling every 10 minutes.
+2025-11-28 01:54:49.994 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:54:50.003 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:54:50.003 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:54:54.257 | INFO     | __main__:fetch_and_send:30 - [VCB] Price changed: None -> 57900.0. Sending to Kafka...
+2025-11-28 01:54:54.348 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@353
+2025-11-28 01:54:54.349 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:54:54.550 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 1 ---
+2025-11-28 01:54:56.369 | DEBUG    | __main__:process_batch:44 - Writing 1 rows to Data Lake...
+2025-11-28 01:54:58.416 | INFO     | __main__:fetch_and_send:30 - [CTG] Price changed: None -> 48850.0. Sending to Kafka...
+2025-11-28 01:54:58.431 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@354
+2025-11-28 01:54:58.431 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:00.512 | DEBUG    | __main__:process_batch:61 - Syncing batch to PostgreSQL for stocks: ['VCB']
+2025-11-28 01:55:01.532 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 2 ---
+2025-11-28 01:55:02.225 | DEBUG    | __main__:process_batch:44 - Writing 1 rows to Data Lake...
+2025-11-28 01:55:03.077 | INFO     | __main__:fetch_and_send:30 - [AGR] Price changed: None -> 15350.0. Sending to Kafka...
+2025-11-28 01:55:03.100 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@355
+2025-11-28 01:55:03.101 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:04.246 | DEBUG    | __main__:process_batch:61 - Syncing batch to PostgreSQL for stocks: ['CTG']
+2025-11-28 01:55:04.659 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 3 ---
+2025-11-28 01:55:05.327 | DEBUG    | __main__:process_batch:44 - Writing 1 rows to Data Lake...
+2025-11-28 01:55:07.119 | DEBUG    | __main__:process_batch:61 - Syncing batch to PostgreSQL for stocks: ['AGR']
+2025-11-28 01:55:07.734 | INFO     | __main__:fetch_and_send:30 - [ACB] Price changed: None -> 24350.0. Sending to Kafka...
+2025-11-28 01:55:07.748 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@356
+2025-11-28 01:55:07.749 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:07.867 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 4 ---
+2025-11-28 01:55:08.488 | DEBUG    | __main__:process_batch:44 - Writing 1 rows to Data Lake...
+2025-11-28 01:55:08.502 | INFO     | __main__:fetch_and_send:30 - [^GSPC] Price changed: None -> 6812.60986328125. Sending to Kafka...
+2025-11-28 01:55:08.517 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@357
+2025-11-28 01:55:08.518 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:08.764 | INFO     | __main__:fetch_and_send:30 - [GC=F] Price changed: None -> 4189.7998046875. Sending to Kafka...
+2025-11-28 01:55:08.780 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@358
+2025-11-28 01:55:08.780 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:08.976 | INFO     | __main__:fetch_and_send:30 - [^DJI] Price changed: None -> 47427.12109375. Sending to Kafka...
+2025-11-28 01:55:09.024 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@359
+2025-11-28 01:55:09.030 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:55:10.095 | DEBUG    | __main__:process_batch:61 - Syncing batch to PostgreSQL for stocks: ['ACB']
+2025-11-28 01:55:10.682 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 5 ---
+2025-11-28 01:55:11.298 | DEBUG    | __main__:process_batch:44 - Writing 3 rows to Data Lake...
+2025-11-28 01:55:12.656 | DEBUG    | __main__:process_batch:61 - Syncing batch to PostgreSQL for stocks: ['_DJI', 'GC_F', '_GSPC']
+2025-11-28 01:55:19.036 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:55:19.047 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:55:19.048 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:22.824 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:55:22.825 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:26.417 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:55:26.418 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:30.153 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:55:30.154 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:33.974 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:55:33.974 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:34.190 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:55:34.190 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:34.398 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.7998046875). Skipping.
+2025-11-28 01:55:34.398 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:34.594 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:55:34.596 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:55:44.599 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:55:44.606 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:55:44.607 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:48.487 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:55:48.488 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:52.285 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:55:52.286 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:55.106 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for AGR. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:55:55.109 | WARNING  | __main__:fetch_and_send:23 - [AGR] No data found currently.
+2025-11-28 01:55:55.110 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:56.028 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for ACB. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:55:56.030 | WARNING  | __main__:fetch_and_send:23 - [ACB] No data found currently.
+2025-11-28 01:55:56.031 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:56.209 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:55:56.209 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:56.372 | INFO     | __main__:fetch_and_send:30 - [GC=F] Price changed: 4189.7998046875 -> 4189.39990234375. Sending to Kafka...
+2025-11-28 01:55:56.390 | INFO     | src.utils.kafka_producer:send:33 - [Kafka] Sent None to stock_ticks_v1-0@360
+2025-11-28 01:55:56.390 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:55:56.530 | INFO     | __main__:process_batch:37 - --- Processing Batch ID: 6 ---
+2025-11-28 01:55:56.573 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:55:56.574 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:55:57.170 | DEBUG    | __main__:process_batch:44 - Writing 1 rows to Data Lake...
+2025-11-28 01:55:58.531 | DEBUG    | __main__:process_batch:61 - Syncing batch to PostgreSQL for stocks: ['GC_F']
+2025-11-28 01:56:06.577 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:56:06.583 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:56:06.583 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:13.266 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:56:13.266 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:16.857 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:56:16.857 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:20.549 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:56:20.550 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:24.318 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:56:24.319 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:24.481 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:56:24.482 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:24.706 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:56:24.706 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:24.918 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:56:24.920 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:56:34.922 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:56:34.926 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:56:34.927 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:38.718 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:56:38.719 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:42.264 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:56:42.264 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:45.808 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:56:45.808 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:49.407 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:56:49.407 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:49.552 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:56:49.552 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:49.804 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:56:49.804 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:56:49.983 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:56:49.984 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:56:59.986 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:56:59.995 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:56:59.996 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:03.780 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:57:03.781 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:07.363 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:57:07.364 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:10.989 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:57:10.990 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:14.562 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:57:14.562 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:14.716 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:57:14.716 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:14.989 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:57:14.990 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:15.138 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:57:15.139 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:57:25.141 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:57:25.150 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:57:25.151 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:28.890 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:57:28.891 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:32.418 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:57:32.418 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:36.103 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:57:36.103 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:39.689 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:57:39.689 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:39.876 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:57:39.876 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:40.100 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:57:40.100 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:40.283 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:57:40.284 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:57:50.286 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:57:50.291 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:57:50.292 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:53.141 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for VCB. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:57:53.144 | WARNING  | __main__:fetch_and_send:23 - [VCB] No data found currently.
+2025-11-28 01:57:53.144 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:54.053 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for CTG. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:57:54.055 | WARNING  | __main__:fetch_and_send:23 - [CTG] No data found currently.
+2025-11-28 01:57:54.055 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:54.306 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for AGR. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:57:54.308 | WARNING  | __main__:fetch_and_send:23 - [AGR] No data found currently.
+2025-11-28 01:57:54.308 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:55.426 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for ACB. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:57:55.428 | WARNING  | __main__:fetch_and_send:23 - [ACB] No data found currently.
+2025-11-28 01:57:55.428 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:55.587 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:57:55.588 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:55.841 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:57:55.842 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:57:56.027 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:57:56.028 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:58:06.030 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:58:06.035 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:58:06.036 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:09.909 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:58:09.910 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:13.365 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:58:13.365 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:16.810 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:58:16.811 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:20.239 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:58:20.239 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:20.419 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:58:20.419 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:20.632 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:58:20.632 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:20.780 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:58:20.781 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:58:30.783 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:58:30.789 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:58:30.790 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:34.309 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:58:34.309 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:37.711 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:58:37.711 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:41.596 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:58:41.596 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:45.216 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:58:45.216 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:45.371 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:58:45.371 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:45.546 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:58:45.547 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:45.732 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:58:45.733 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:58:55.735 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:58:55.743 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:58:55.743 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:58:59.538 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:58:59.538 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:01.018 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for CTG. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:59:01.020 | WARNING  | __main__:fetch_and_send:23 - [CTG] No data found currently.
+2025-11-28 01:59:01.020 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:01.472 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for AGR. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:59:01.473 | WARNING  | __main__:fetch_and_send:23 - [AGR] No data found currently.
+2025-11-28 01:59:01.473 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:01.920 | ERROR    | src.collectors.vietfin_collector:fetch_data:26 - [VietFin] Failed to fetch data for ACB. Error: Error in API response: 429 - {"status":429,"message":"Too many requests!"}
+2025-11-28 01:59:01.921 | WARNING  | __main__:fetch_and_send:23 - [ACB] No data found currently.
+2025-11-28 01:59:01.921 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:02.082 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:59:02.082 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:02.324 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:59:02.324 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:02.471 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:59:02.472 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:59:12.474 | INFO     | __main__:job_cycle:40 - --- Starting Polling Cycle ---
+2025-11-28 01:59:12.479 | SUCCESS  | src.utils.kafka_producer:_connect:21 - [Kafka] Connected to localhost:9092
+2025-11-28 01:59:12.480 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:16.020 | DEBUG    | __main__:fetch_and_send:35 - [VCB] No change (57900.0). Skipping.
+2025-11-28 01:59:16.020 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:19.463 | DEBUG    | __main__:fetch_and_send:35 - [CTG] No change (48850.0). Skipping.
+2025-11-28 01:59:19.463 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:23.012 | DEBUG    | __main__:fetch_and_send:35 - [AGR] No change (15350.0). Skipping.
+2025-11-28 01:59:23.012 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:26.481 | DEBUG    | __main__:fetch_and_send:35 - [ACB] No change (24350.0). Skipping.
+2025-11-28 01:59:26.482 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:26.684 | DEBUG    | __main__:fetch_and_send:35 - [^GSPC] No change (6812.60986328125). Skipping.
+2025-11-28 01:59:26.684 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:26.907 | DEBUG    | __main__:fetch_and_send:35 - [GC=F] No change (4189.39990234375). Skipping.
+2025-11-28 01:59:26.907 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 01:59:27.093 | DEBUG    | __main__:fetch_and_send:35 - [^DJI] No change (47427.12109375). Skipping.
+2025-11-28 01:59:27.094 | INFO     | __main__:job_cycle:52 - --- Cycle Finished ---
+2025-11-28 01:59:33.006 | INFO     | __main__:run:64 - [Job 0] Stopping producer...
+2025-11-28 01:59:41.287 | CRITICAL | __main__:run:120 - [Ingestion] Streaming query failed unexpectedly. Error: An error occurred while calling o72.awaitAnyTermination
+2025-11-28 02:02:41.717 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 02:02:41.720 | INFO     | __main__:run:27 - [Job 2] Starting ETL & Feature Engineering Pipeline...
+2025-11-28 02:02:41.720 | INFO     | __main__:run:37 - Config loaded. Raw Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 02:02:41.721 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: FeatureEngineering_Batch
+2025-11-28 02:02:41.721 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 02:02:43.970 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'FeatureEngineering_Batch' started successfully.
+2025-11-28 02:02:52.361 | INFO     | __main__:run:51 - Loaded 27859 raw records from Data Lake.
+2025-11-28 02:03:02.438 | INFO     | __main__:run:101 - -> Writing FULL history to PostgreSQL (Including Today)...
+2025-11-28 02:03:04.112 | INFO     | __main__:run:133 - -> Writing CLEAN features to Data Lake: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 02:03:07.426 | SUCCESS  | __main__:run:139 - [Job 2] Pipeline Completed Successfully.
+2025-11-28 02:06:07.552 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 02:06:07.552 | INFO     | __main__:run:75 - [Job 3] Starting Model Training Pipeline...
+2025-11-28 02:06:07.553 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: ModelTraining_Batch
+2025-11-28 02:06:07.553 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 02:06:09.708 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'ModelTraining_Batch' started successfully.
+2025-11-28 02:06:09.708 | INFO     | __main__:run:101 - -> Reading features from: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 02:06:15.445 | INFO     | __main__:run:106 - -> Found 4 stocks to train: ['VCB', 'CTG', 'ACB', 'AGR']
+2025-11-28 02:06:15.445 | INFO     | __main__:run:107 - -> Input Features: ['close', 'volume', 'returns_1d', 'lag_1d', 'sma_20', 'ema_50', '_GSPC_lag_1d', 'GC_F_lag_1d', '_DJI_lag_1d']
+2025-11-28 02:06:15.446 | INFO     | __main__:train_model_for_stock:20 - [VCB] Starting training process...
+2025-11-28 02:06:17.198 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 02:06:17.752 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 02:06:22.832 | INFO     | __main__:train_model_for_stock:66 - [VCB] Training Success. RMSE: 518.14 | R2: 0.9993
+2025-11-28 02:06:24.127 | INFO     | __main__:train_model_for_stock:69 - [VCB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/VCB_lr_model
+2025-11-28 02:06:24.127 | INFO     | __main__:train_model_for_stock:20 - [CTG] Starting training process...
+2025-11-28 02:06:24.602 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 02:06:24.842 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 02:06:26.617 | INFO     | __main__:train_model_for_stock:66 - [CTG] Training Success. RMSE: 383.72 | R2: 0.9986
+2025-11-28 02:06:27.343 | INFO     | __main__:train_model_for_stock:69 - [CTG] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/CTG_lr_model
+2025-11-28 02:06:27.344 | INFO     | __main__:train_model_for_stock:20 - [ACB] Starting training process...
+2025-11-28 02:06:27.712 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3169 rows (Past)
+2025-11-28 02:06:27.892 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  792 rows (Future)
+2025-11-28 02:06:29.296 | INFO     | __main__:train_model_for_stock:66 - [ACB] Training Success. RMSE: 169.79 | R2: 0.9993
+2025-11-28 02:06:30.003 | INFO     | __main__:train_model_for_stock:69 - [ACB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/ACB_lr_model
+2025-11-28 02:06:30.003 | INFO     | __main__:train_model_for_stock:20 - [AGR] Starting training process...
+2025-11-28 02:06:30.326 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 02:06:30.522 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 02:06:31.804 | INFO     | __main__:train_model_for_stock:66 - [AGR] Training Success. RMSE: 249.63 | R2: 0.9977
+2025-11-28 02:06:32.499 | INFO     | __main__:train_model_for_stock:69 - [AGR] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/AGR_lr_model
+2025-11-28 02:06:32.500 | SUCCESS  | __main__:run:116 - [Job 3] Model Training Pipeline Completed.
+2025-11-28 02:08:48.493 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 02:08:48.494 | INFO     | __main__:run:28 - [Job 4] Starting Batch Prediction (Full Fix)...
+2025-11-28 02:08:48.494 | INFO     | __main__:run:47 - Global Assets: ['_GSPC', 'GC_F', '_DJI']
+2025-11-28 02:08:48.494 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Prediction_Batch
+2025-11-28 02:08:48.494 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 02:08:50.664 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Prediction_Batch' started successfully.
+2025-11-28 02:08:54.917 | INFO     | __main__:run:69 - 🔍 DEBUGGING GLOBAL ASSETS DATA:
+2025-11-28 02:08:58.336 | INFO     | __main__:run:72 -    Asset: _GSPC | Rows: 4000
+2025-11-28 02:09:01.636 | INFO     | __main__:run:72 -    Asset: GC_F | Rows: 3999
+2025-11-28 02:09:02.884 | INFO     | __main__:run:72 -    Asset: _DJI | Rows: 4000
+2025-11-28 02:09:09.030 | INFO     | __main__:run:110 - -> Ready to predict for 4 stocks.
+2025-11-28 02:09:11.646 | INFO     | __main__:run:117 - -> Calculating Top Rankings...
+2025-11-28 02:09:13.886 | SUCCESS  | __main__:run:128 - Synced 'stock_rankings'.
+2025-11-28 02:09:13.887 | INFO     | __main__:run:132 - -> Running Predictions...
+2025-11-28 02:09:19.370 | INFO     | __main__:run:146 -    [ACB] Date: 2025-11-27 | Close: 24350.0 -> Pred: 24,396.83
+2025-11-28 02:09:20.875 | INFO     | __main__:run:146 -    [AGR] Date: 2025-11-27 | Close: 15350.0 -> Pred: 15,366.19
+2025-11-28 02:09:22.249 | INFO     | __main__:run:146 -    [CTG] Date: 2025-11-27 | Close: 48850.0 -> Pred: 48,843.46
+2025-11-28 02:09:23.601 | INFO     | __main__:run:146 -    [VCB] Date: 2025-11-27 | Close: 57900.0 -> Pred: 58,037.73
+2025-11-28 02:09:24.017 | SUCCESS  | __main__:run:165 - Saved 4 predictions to DB.
+2025-11-28 12:32:59.997 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 12:32:59.998 | INFO     | __main__:run:27 - [Job 2] Starting ETL & Feature Engineering Pipeline...
+2025-11-28 12:32:59.998 | INFO     | __main__:run:37 - Config loaded. Raw Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 12:32:59.998 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: FeatureEngineering_Batch
+2025-11-28 12:32:59.998 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 12:33:02.011 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'FeatureEngineering_Batch' started successfully.
+2025-11-28 12:33:09.543 | INFO     | __main__:run:51 - Loaded 27859 raw records from Data Lake.
+2025-11-28 12:33:19.072 | INFO     | __main__:run:101 - -> Writing FULL history to PostgreSQL (Including Today)...
+2025-11-28 12:33:20.472 | INFO     | __main__:run:133 - -> Writing CLEAN features to Data Lake: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 12:33:23.772 | SUCCESS  | __main__:run:139 - [Job 2] Pipeline Completed Successfully.
+2025-11-28 12:38:24.733 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 12:38:24.734 | INFO     | __main__:run:27 - [Job 2] Starting ETL & Feature Engineering Pipeline...
+2025-11-28 12:38:24.734 | INFO     | __main__:run:37 - Config loaded. Raw Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 12:38:24.734 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: FeatureEngineering_Batch
+2025-11-28 12:38:24.734 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 12:38:26.543 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'FeatureEngineering_Batch' started successfully.
+2025-11-28 12:38:33.805 | INFO     | __main__:run:51 - Loaded 27859 raw records from Data Lake.
+2025-11-28 12:41:19.429 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 12:41:19.430 | INFO     | __main__:run:27 - [Job 2] Starting ETL & Feature Engineering Pipeline...
+2025-11-28 12:41:19.430 | INFO     | __main__:run:37 - Config loaded. Raw Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 12:41:19.430 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: FeatureEngineering_Batch
+2025-11-28 12:41:19.430 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 12:41:21.845 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'FeatureEngineering_Batch' started successfully.
+2025-11-28 12:41:29.282 | INFO     | __main__:run:51 - Loaded 27859 raw records from Data Lake.
+2025-11-28 12:41:32.915 | INFO     | __main__:run:130 - -> Writing CLEAN features to Data Lake: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 12:41:42.126 | SUCCESS  | __main__:run:138 - [Job 2] Pipeline Completed Successfully.
+2025-11-28 13:07:27.794 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 13:07:27.795 | INFO     | __main__:run:28 - [Job 4] Starting Batch Prediction (Full Fix)...
+2025-11-28 13:07:27.795 | INFO     | __main__:run:47 - Global Assets: ['_GSPC', 'GC_F', '_DJI']
+2025-11-28 13:07:27.795 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Prediction_Batch
+2025-11-28 13:07:27.795 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 13:07:29.420 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Prediction_Batch' started successfully.
+2025-11-28 13:07:33.335 | INFO     | __main__:run:69 - 🔍 DEBUGGING GLOBAL ASSETS DATA:
+2025-11-28 13:07:36.679 | INFO     | __main__:run:72 -    Asset: _GSPC | Rows: 4000
+2025-11-28 13:07:39.907 | INFO     | __main__:run:72 -    Asset: GC_F | Rows: 3999
+2025-11-28 13:07:41.480 | INFO     | __main__:run:72 -    Asset: _DJI | Rows: 4000
+2025-11-28 13:07:49.040 | INFO     | __main__:run:109 - -> Ready to predict for 4 stocks.
+2025-11-28 13:07:51.721 | INFO     | __main__:run:116 - -> Calculating Top Rankings...
+2025-11-28 13:07:54.258 | SUCCESS  | __main__:run:127 - Synced 'stock_rankings'.
+2025-11-28 13:07:54.259 | INFO     | __main__:run:131 - -> Running Predictions...
+2025-11-28 13:08:00.318 | INFO     | __main__:run:145 -    [ACB] Date: 2025-11-27 | Close: 24350.0 -> Pred: 24,396.83
+2025-11-28 13:08:02.152 | INFO     | __main__:run:145 -    [AGR] Date: 2025-11-27 | Close: 15350.0 -> Pred: 15,366.19
+2025-11-28 13:08:04.018 | INFO     | __main__:run:145 -    [CTG] Date: 2025-11-27 | Close: 48850.0 -> Pred: 48,843.46
+2025-11-28 13:08:05.350 | INFO     | __main__:run:145 -    [VCB] Date: 2025-11-27 | Close: 57900.0 -> Pred: 58,037.73
+2025-11-28 13:08:05.711 | SUCCESS  | __main__:run:164 - Saved 4 predictions to DB.
+2025-11-28 14:13:32.009 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 14:13:32.009 | INFO     | __main__:run:79 - [Job 3] Starting Model Training Pipeline...
+2025-11-28 14:13:32.009 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: ModelTraining_Batch
+2025-11-28 14:13:32.010 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 14:13:33.861 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'ModelTraining_Batch' started successfully.
+2025-11-28 14:13:33.861 | INFO     | __main__:run:105 - -> Reading features from: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 14:13:38.797 | INFO     | __main__:run:110 - -> Found 4 stocks to train: ['VCB', 'CTG', 'ACB', 'AGR']
+2025-11-28 14:13:38.797 | INFO     | __main__:run:111 - -> Input Features: ['close', 'volume', 'returns_1d', 'lag_1d', 'sma_20', 'ema_50', '_GSPC_lag_1d', 'GC_F_lag_1d', '_DJI_lag_1d']
+2025-11-28 14:13:38.797 | INFO     | __main__:train_model_for_stock:20 - [VCB] Starting training process...
+2025-11-28 14:13:40.141 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 14:13:40.467 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 14:13:44.943 | INFO     | __main__:train_model_for_stock:70 - [VCB] Training Success. MAE: 333.14 | MSE: 268,469.68 |RMSE: 518.14 | R2: 0.9993
+2025-11-28 14:13:46.245 | INFO     | __main__:train_model_for_stock:73 - [VCB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/VCB_lr_model
+2025-11-28 14:13:46.245 | INFO     | __main__:train_model_for_stock:20 - [CTG] Starting training process...
+2025-11-28 14:13:46.642 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 14:13:46.872 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 14:13:48.769 | INFO     | __main__:train_model_for_stock:70 - [CTG] Training Success. MAE: 243.09 | MSE: 147,240.28 |RMSE: 383.72 | R2: 0.9986
+2025-11-28 14:13:49.572 | INFO     | __main__:train_model_for_stock:73 - [CTG] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/CTG_lr_model
+2025-11-28 14:13:49.573 | INFO     | __main__:train_model_for_stock:20 - [ACB] Starting training process...
+2025-11-28 14:13:49.927 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3169 rows (Past)
+2025-11-28 14:13:50.114 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  792 rows (Future)
+2025-11-28 14:13:51.745 | INFO     | __main__:train_model_for_stock:70 - [ACB] Training Success. MAE: 94.45 | MSE: 28,827.37 |RMSE: 169.79 | R2: 0.9993
+2025-11-28 14:13:52.513 | INFO     | __main__:train_model_for_stock:73 - [ACB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/ACB_lr_model
+2025-11-28 14:13:52.514 | INFO     | __main__:train_model_for_stock:20 - [AGR] Starting training process...
+2025-11-28 14:13:52.869 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 14:13:53.040 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 14:13:54.604 | INFO     | __main__:train_model_for_stock:70 - [AGR] Training Success. MAE: 153.64 | MSE: 62,313.46 |RMSE: 249.63 | R2: 0.9977
+2025-11-28 14:13:55.361 | INFO     | __main__:train_model_for_stock:73 - [AGR] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/AGR_lr_model
+2025-11-28 14:13:55.361 | SUCCESS  | __main__:run:120 - [Job 3] Model Training Pipeline Completed.
+2025-11-28 14:18:32.355 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 14:18:32.356 | INFO     | __main__:run:79 - [Job 3] Starting Model Training Pipeline...
+2025-11-28 14:18:32.357 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: ModelTraining_Batch
+2025-11-28 14:18:32.357 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 14:18:36.246 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'ModelTraining_Batch' started successfully.
+2025-11-28 14:18:36.246 | INFO     | __main__:run:105 - -> Reading features from: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 14:18:43.541 | INFO     | __main__:run:110 - -> Found 4 stocks to train: ['VCB', 'CTG', 'ACB', 'AGR']
+2025-11-28 14:18:43.542 | INFO     | __main__:run:111 - -> Input Features: ['close', 'volume', 'returns_1d', 'lag_1d', 'sma_20', 'ema_50', '_GSPC_lag_1d', 'GC_F_lag_1d', '_DJI_lag_1d']
+2025-11-28 14:18:43.542 | INFO     | __main__:train_model_for_stock:20 - [VCB] Starting training process...
+2025-11-28 14:18:46.033 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 14:18:46.497 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 14:18:53.869 | INFO     | __main__:train_model_for_stock:70 - [VCB] Training Success. MAE: 550.77 | MSE: 632,454.86 |RMSE: 795.27 | R2: 0.9832
+2025-11-28 14:18:55.433 | INFO     | __main__:train_model_for_stock:73 - [VCB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/VCB_lr_model
+2025-11-28 14:18:55.434 | INFO     | __main__:train_model_for_stock:20 - [CTG] Starting training process...
+2025-11-28 14:18:55.862 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 14:18:56.081 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 14:18:58.793 | INFO     | __main__:train_model_for_stock:70 - [CTG] Training Success. MAE: 427.00 | MSE: 385,556.97 |RMSE: 620.93 | R2: 0.9943
+2025-11-28 14:18:59.672 | INFO     | __main__:train_model_for_stock:73 - [CTG] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/CTG_lr_model
+2025-11-28 14:18:59.673 | INFO     | __main__:train_model_for_stock:20 - [ACB] Starting training process...
+2025-11-28 14:19:00.011 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3169 rows (Past)
+2025-11-28 14:19:00.177 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  792 rows (Future)
+2025-11-28 14:19:02.013 | INFO     | __main__:train_model_for_stock:70 - [ACB] Training Success. MAE: 186.91 | MSE: 84,383.18 |RMSE: 290.49 | R2: 0.9944
+2025-11-28 14:19:03.024 | INFO     | __main__:train_model_for_stock:73 - [ACB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/ACB_lr_model
+2025-11-28 14:19:03.024 | INFO     | __main__:train_model_for_stock:20 - [AGR] Starting training process...
+2025-11-28 14:19:03.394 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3172 rows (Past)
+2025-11-28 14:19:03.647 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 14:19:05.727 | INFO     | __main__:train_model_for_stock:70 - [AGR] Training Success. MAE: 263.57 | MSE: 140,256.70 |RMSE: 374.51 | R2: 0.9905
+2025-11-28 14:19:06.597 | INFO     | __main__:train_model_for_stock:73 - [AGR] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/AGR_lr_model
+2025-11-28 14:19:06.597 | SUCCESS  | __main__:run:120 - [Job 3] Model Training Pipeline Completed.
+2025-11-28 15:15:32.134 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:15:32.691 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:15:32.805 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:17:01.192 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:17:06.457 | INFO     | __main__:run:47 - [Backfill] Starting Historical Data Ingestion...
+2025-11-28 15:17:06.457 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Backfill_History
+2025-11-28 15:17:06.457 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:17:08.304 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Backfill_History' started successfully.
+2025-11-28 15:17:08.305 | INFO     | __main__:run:60 - [Backfill] Target Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:17:08.305 | INFO     | __main__:run:61 - [Backfill] Time Range: 2010-01-01 to 2025-11-28
+2025-11-28 15:17:08.305 | INFO     | __main__:run:70 - [Backfill] Fetching 4 Vietnam stocks...
+2025-11-28 15:17:08.305 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: VCB
+2025-11-28 15:17:08.305 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:25.093 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved VCB to Data Lake.
+2025-11-28 15:17:25.094 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: CTG
+2025-11-28 15:17:25.094 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:32.131 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved CTG to Data Lake.
+2025-11-28 15:17:32.132 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: AGR
+2025-11-28 15:17:32.132 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:38.738 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved AGR to Data Lake.
+2025-11-28 15:17:38.738 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ACB
+2025-11-28 15:17:38.739 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:41.174 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:17:41.760 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:17:41.841 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:17:44.982 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ACB to Data Lake.
+2025-11-28 15:17:44.983 | INFO     | __main__:run:74 - [Backfill] Fetching 3 Global assets...
+2025-11-28 15:17:44.983 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ^GSPC
+2025-11-28 15:17:44.983 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:47.052 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ^GSPC to Data Lake.
+2025-11-28 15:17:47.053 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: GC=F
+2025-11-28 15:17:47.053 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:48.131 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved GC=F to Data Lake.
+2025-11-28 15:17:48.131 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ^DJI
+2025-11-28 15:17:48.131 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 15:17:49.001 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ^DJI to Data Lake.
+2025-11-28 15:17:49.001 | SUCCESS  | __main__:run:78 - [Backfill] Historical Data Ingestion Completed.
+2025-11-28 15:20:51.734 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:20:51.735 | INFO     | __main__:run:27 - [Job 2] Starting ETL & Feature Engineering Pipeline...
+2025-11-28 15:20:51.735 | INFO     | __main__:run:37 - Config loaded. Raw Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:20:51.735 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: FeatureEngineering_Batch
+2025-11-28 15:20:51.735 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:20:53.825 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'FeatureEngineering_Batch' started successfully.
+2025-11-28 15:21:01.585 | INFO     | __main__:run:51 - Loaded 27869 raw records from Data Lake.
+2025-11-28 15:21:05.599 | INFO     | __main__:run:130 - -> Writing CLEAN features to Data Lake: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 15:21:17.030 | SUCCESS  | __main__:run:138 - [Job 2] Pipeline Completed Successfully.
+2025-11-28 15:33:14.331 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:33:14.332 | INFO     | __main__:run:79 - [Job 3] Starting Model Training Pipeline...
+2025-11-28 15:33:14.332 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: ModelTraining_Batch
+2025-11-28 15:33:14.332 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:33:16.270 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'ModelTraining_Batch' started successfully.
+2025-11-28 15:33:16.270 | INFO     | __main__:run:105 - -> Reading features from: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 15:33:21.976 | INFO     | __main__:run:110 - -> Found 4 stocks to train: ['VCB', 'CTG', 'ACB', 'AGR']
+2025-11-28 15:33:21.976 | INFO     | __main__:run:111 - -> Input Features: ['close', 'volume', 'returns_1d', 'lag_1d', 'sma_20', 'ema_50', '_GSPC_lag_1d', 'GC_F_lag_1d', '_DJI_lag_1d']
+2025-11-28 15:33:21.976 | INFO     | __main__:train_model_for_stock:20 - [VCB] Starting training process...
+2025-11-28 15:33:23.745 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3173 rows (Past)
+2025-11-28 15:33:24.143 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  794 rows (Future)
+2025-11-28 15:33:29.971 | INFO     | __main__:train_model_for_stock:70 - [VCB] Training Success. MAE: 550.99 | MSE: 632,408.16 |RMSE: 795.24 | R2: 0.9831
+2025-11-28 15:33:31.401 | INFO     | __main__:train_model_for_stock:73 - [VCB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/VCB_lr_model
+2025-11-28 15:33:31.401 | INFO     | __main__:train_model_for_stock:20 - [CTG] Starting training process...
+2025-11-28 15:33:31.793 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3173 rows (Past)
+2025-11-28 15:33:32.014 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  794 rows (Future)
+2025-11-28 15:33:34.602 | INFO     | __main__:train_model_for_stock:70 - [CTG] Training Success. MAE: 426.92 | MSE: 384,728.06 |RMSE: 620.26 | R2: 0.9943
+2025-11-28 15:33:35.449 | INFO     | __main__:train_model_for_stock:73 - [CTG] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/CTG_lr_model
+2025-11-28 15:33:35.450 | INFO     | __main__:train_model_for_stock:20 - [ACB] Starting training process...
+2025-11-28 15:33:35.867 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3170 rows (Past)
+2025-11-28 15:33:36.094 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  793 rows (Future)
+2025-11-28 15:33:38.480 | INFO     | __main__:train_model_for_stock:70 - [ACB] Training Success. MAE: 186.89 | MSE: 84,313.53 |RMSE: 290.37 | R2: 0.9944
+2025-11-28 15:33:39.327 | INFO     | __main__:train_model_for_stock:73 - [ACB] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/ACB_lr_model
+2025-11-28 15:33:39.327 | INFO     | __main__:train_model_for_stock:20 - [AGR] Starting training process...
+2025-11-28 15:33:39.644 | INFO     | __main__:train_model_for_stock:31 -    + Train set: 3173 rows (Past)
+2025-11-28 15:33:39.898 | INFO     | __main__:train_model_for_stock:32 -    + Test set:  794 rows (Future)
+2025-11-28 15:33:42.142 | INFO     | __main__:train_model_for_stock:70 - [AGR] Training Success. MAE: 262.69 | MSE: 139,678.68 |RMSE: 373.74 | R2: 0.9905
+2025-11-28 15:33:43.180 | INFO     | __main__:train_model_for_stock:73 - [AGR] Model saved to: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/models/AGR_lr_model
+2025-11-28 15:33:43.181 | SUCCESS  | __main__:run:120 - [Job 3] Model Training Pipeline Completed.
+2025-11-28 15:43:51.654 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:43:52.232 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:43:52.325 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:44:00.954 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:44:01.496 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:44:01.559 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:46:41.605 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:46:46.703 | INFO     | __main__:run:47 - [Backfill] Starting Historical Data Ingestion...
+2025-11-28 15:46:46.704 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Backfill_History
+2025-11-28 15:46:46.704 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:46:48.670 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Backfill_History' started successfully.
+2025-11-28 15:46:48.671 | INFO     | __main__:run:60 - [Backfill] Target Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:46:48.671 | INFO     | __main__:run:61 - [Backfill] Time Range: 2010-01-01 to 2025-11-28
+2025-11-28 15:46:48.671 | INFO     | __main__:run:70 - [Backfill] Fetching 4 Vietnam stocks...
+2025-11-28 15:46:48.671 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: VCB
+2025-11-28 15:46:48.671 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:46:54.829 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for VCB. Error: RetryError[<Future at 0x7f5e5c156490 state=finished raised TypeError>]
+2025-11-28 15:46:54.831 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for VCB. Skipping.
+2025-11-28 15:46:54.831 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: CTG
+2025-11-28 15:46:54.831 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 15:47:39.113 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:47:39.589 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:47:39.653 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:49:46.034 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:49:50.757 | INFO     | __main__:run:47 - [Backfill] Starting Historical Data Ingestion...
+2025-11-28 15:49:50.757 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Backfill_History
+2025-11-28 15:49:50.757 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:49:52.676 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Backfill_History' started successfully.
+2025-11-28 15:49:52.676 | INFO     | __main__:run:60 - [Backfill] Target Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:49:52.677 | INFO     | __main__:run:61 - [Backfill] Time Range: 2010-01-01 to 2025-11-28
+2025-11-28 15:49:52.677 | INFO     | __main__:run:70 - [Backfill] Fetching 4 Vietnam stocks...
+2025-11-28 15:49:52.677 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: VCB
+2025-11-28 15:49:52.677 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:49:56.679 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for VCB. Error: RetryError[<Future at 0x7f1ebafee210 state=finished raised TypeError>]
+2025-11-28 15:49:56.681 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for VCB. Skipping.
+2025-11-28 15:49:56.681 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: CTG
+2025-11-28 15:49:56.681 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 15:50:00.685 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for CTG. Error: RetryError[<Future at 0x7f1ebb006690 state=finished raised TypeError>]
+2025-11-28 15:50:00.686 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for CTG. Skipping.
+2025-11-28 15:50:00.686 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: AGR
+2025-11-28 15:50:00.687 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 15:50:04.689 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for AGR. Error: RetryError[<Future at 0x7f1ebb100c50 state=finished raised TypeError>]
+2025-11-28 15:50:04.691 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for AGR. Skipping.
+2025-11-28 15:50:04.691 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ACB
+2025-11-28 15:50:04.691 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:50:40.857 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:50:44.913 | INFO     | __main__:run:47 - [Backfill] Starting Historical Data Ingestion...
+2025-11-28 15:50:44.914 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Backfill_History
+2025-11-28 15:50:44.914 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:52:51.311 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Backfill_History' started successfully.
+2025-11-28 15:52:51.311 | INFO     | __main__:run:60 - [Backfill] Target Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:52:51.311 | INFO     | __main__:run:61 - [Backfill] Time Range: 2010-01-01 to 2025-11-28
+2025-11-28 15:52:51.312 | INFO     | __main__:run:70 - [Backfill] Fetching 4 Vietnam stocks...
+2025-11-28 15:52:51.312 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: VCB
+2025-11-28 15:52:51.312 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:52:55.317 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for VCB. Error: RetryError[<Future at 0x7fe2ae572710 state=finished raised TypeError>]
+2025-11-28 15:52:55.319 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for VCB. Skipping.
+2025-11-28 15:52:55.320 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: CTG
+2025-11-28 15:52:55.320 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 15:52:59.322 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for CTG. Error: RetryError[<Future at 0x7fe2ae3b9370 state=finished raised TypeError>]
+2025-11-28 15:52:59.323 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for CTG. Skipping.
+2025-11-28 15:52:59.323 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: AGR
+2025-11-28 15:52:59.323 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 15:53:03.325 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for AGR. Error: RetryError[<Future at 0x7fe2ae64e150 state=finished raised TypeError>]
+2025-11-28 15:53:03.326 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for AGR. Skipping.
+2025-11-28 15:53:03.327 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ACB
+2025-11-28 15:53:03.327 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:53:14.864 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:53:15.346 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:53:15.407 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:53:17.106 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:53:21.073 | INFO     | __main__:run:47 - [Backfill] Starting Historical Data Ingestion...
+2025-11-28 15:53:21.073 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Backfill_History
+2025-11-28 15:53:21.073 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:55:28.656 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Backfill_History' started successfully.
+2025-11-28 15:55:28.657 | INFO     | __main__:run:60 - [Backfill] Target Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:55:28.658 | INFO     | __main__:run:61 - [Backfill] Time Range: 2010-01-01 to 2025-11-28
+2025-11-28 15:55:28.658 | INFO     | __main__:run:70 - [Backfill] Fetching 4 Vietnam stocks...
+2025-11-28 15:55:28.658 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: VCB
+2025-11-28 15:55:28.659 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:55:35.198 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for VCB. Error: RetryError[<Future at 0x7fb40a172990 state=finished raised TypeError>]
+2025-11-28 15:55:35.202 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for VCB. Skipping.
+2025-11-28 15:55:35.203 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: CTG
+2025-11-28 15:55:35.203 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 15:55:41.107 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for CTG. Error: RetryError[<Future at 0x7fb409fb9c70 state=finished raised TypeError>]
+2025-11-28 15:55:41.109 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for CTG. Skipping.
+2025-11-28 15:55:41.109 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: AGR
+2025-11-28 15:55:41.109 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 15:55:47.021 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for AGR. Error: RetryError[<Future at 0x7fb40a252550 state=finished raised TypeError>]
+2025-11-28 15:55:47.022 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for AGR. Skipping.
+2025-11-28 15:55:47.023 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ACB
+2025-11-28 15:55:47.023 | INFO     | src.collectors.vnstock_collector:fetch_data:10 - [VnStock] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:55:52.900 | ERROR    | src.collectors.vnstock_collector:fetch_data:31 - [VnStock] Failed to fetch data for ACB. Error: RetryError[<Future at 0x7fb40a0998b0 state=finished raised TypeError>]
+2025-11-28 15:55:52.902 | WARNING  | __main__:save_to_lake:24 - [Backfill] No data found for ACB. Skipping.
+2025-11-28 15:55:52.902 | INFO     | __main__:run:74 - [Backfill] Fetching 3 Global assets...
+2025-11-28 15:55:52.902 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ^GSPC
+2025-11-28 15:55:52.902 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 15:56:07.115 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ^GSPC to Data Lake.
+2025-11-28 15:56:07.116 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: GC=F
+2025-11-28 15:56:07.116 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 15:56:08.441 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved GC=F to Data Lake.
+2025-11-28 15:56:08.441 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ^DJI
+2025-11-28 15:56:08.442 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 15:56:09.706 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ^DJI to Data Lake.
+2025-11-28 15:56:09.707 | SUCCESS  | __main__:run:78 - [Backfill] Historical Data Ingestion Completed.
+2025-11-28 15:57:07.832 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:57:08.453 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:57:08.532 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:57:23.994 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 15:57:24.528 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:57:24.590 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 15:59:38.388 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 15:59:42.464 | INFO     | __main__:run:47 - [Backfill] Starting Historical Data Ingestion...
+2025-11-28 15:59:42.464 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Backfill_History
+2025-11-28 15:59:42.464 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 15:59:44.186 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Backfill_History' started successfully.
+2025-11-28 15:59:44.187 | INFO     | __main__:run:60 - [Backfill] Target Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 15:59:44.187 | INFO     | __main__:run:61 - [Backfill] Time Range: 2010-01-01 to 2025-11-28
+2025-11-28 15:59:44.187 | INFO     | __main__:run:70 - [Backfill] Fetching 4 Vietnam stocks...
+2025-11-28 15:59:44.187 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: VCB
+2025-11-28 15:59:44.187 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for VCB from 2010-01-01 to 2025-11-28...
+2025-11-28 15:59:58.396 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved VCB to Data Lake.
+2025-11-28 15:59:58.397 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: CTG
+2025-11-28 15:59:58.397 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for CTG from 2010-01-01 to 2025-11-28...
+2025-11-28 16:00:05.073 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved CTG to Data Lake.
+2025-11-28 16:00:05.074 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: AGR
+2025-11-28 16:00:05.074 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for AGR from 2010-01-01 to 2025-11-28...
+2025-11-28 16:00:11.700 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved AGR to Data Lake.
+2025-11-28 16:00:11.700 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ACB
+2025-11-28 16:00:11.700 | INFO     | src.collectors.vietfin_collector:fetch_data:12 - [VietFin] Fetching historical data for ACB from 2010-01-01 to 2025-11-28...
+2025-11-28 16:00:17.817 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ACB to Data Lake.
+2025-11-28 16:00:17.818 | INFO     | __main__:run:74 - [Backfill] Fetching 3 Global assets...
+2025-11-28 16:00:17.818 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ^GSPC
+2025-11-28 16:00:17.818 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^GSPC from 2010-01-01 to 2025-11-28...
+2025-11-28 16:00:19.886 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ^GSPC to Data Lake.
+2025-11-28 16:00:19.887 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: GC=F
+2025-11-28 16:00:19.887 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for GC=F from 2010-01-01 to 2025-11-28...
+2025-11-28 16:00:20.816 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved GC=F to Data Lake.
+2025-11-28 16:00:20.816 | INFO     | __main__:save_to_lake:21 - [Backfill] Processing symbol: ^DJI
+2025-11-28 16:00:20.817 | INFO     | src.collectors.yifinance_collector:fetch_data:10 - [YFinance] Fetching historical data for ^DJI from 2010-01-01 to 2025-11-28...
+2025-11-28 16:00:21.784 | SUCCESS  | __main__:save_to_lake:42 - [Backfill] Successfully saved ^DJI to Data Lake.
+2025-11-28 16:00:21.784 | SUCCESS  | __main__:run:78 - [Backfill] Historical Data Ingestion Completed.
+2025-11-28 16:03:09.280 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 16:03:09.281 | INFO     | __main__:run:18 - [Job 5] Starting Market Ranking Pipeline...
+2025-11-28 16:03:09.281 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Ranking_Batch
+2025-11-28 16:03:09.282 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 16:03:11.650 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Ranking_Batch' started successfully.
+2025-11-28 16:03:11.650 | INFO     | __main__:run:40 - -> Reading features from: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 16:03:13.038 | CRITICAL | __main__:run:43 - Failed to read Data Lake: [PATH_NOT_FOUND] Path does not exist: file:/home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features.
+2025-11-28 16:06:13.422 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 16:06:13.423 | INFO     | __main__:run:27 - [Job 2] Starting ETL & Feature Engineering Pipeline...
+2025-11-28 16:06:13.424 | INFO     | __main__:run:37 - Config loaded. Raw Path: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/raw_ticks
+2025-11-28 16:06:13.424 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: FeatureEngineering_Batch
+2025-11-28 16:06:13.424 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 16:06:15.711 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'FeatureEngineering_Batch' started successfully.
+2025-11-28 16:06:25.339 | INFO     | __main__:run:51 - Loaded 27869 raw records from Data Lake.
+2025-11-28 16:06:30.440 | INFO     | __main__:run:130 - -> Writing CLEAN features to Data Lake: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 16:06:41.751 | SUCCESS  | __main__:run:138 - [Job 2] Pipeline Completed Successfully.
+2025-11-28 16:10:44.561 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 16:10:44.561 | INFO     | __main__:run:18 - [Job 5] Starting Market Ranking Pipeline...
+2025-11-28 16:10:44.561 | INFO     | src.utils.spark_utils:get_spark_session:18 - [SparkUtils] Initializing SparkSession for: Ranking_Batch
+2025-11-28 16:10:44.561 | DEBUG    | src.utils.spark_utils:get_spark_session:27 - [SparkUtils] Loading packages: org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.postgresql:postgresql:42.6.0
+2025-11-28 16:10:45.279 | SUCCESS  | src.utils.spark_utils:get_spark_session:31 - [SparkUtils] SparkSession 'Ranking_Batch' started successfully.
+2025-11-28 16:10:45.279 | INFO     | __main__:run:40 - -> Reading features from: file:///home/hungluu12/Work/Projects/VietnamBankPredictML/data_lake/processed_features
+2025-11-28 16:10:47.274 | INFO     | __main__:run:52 - -> Latest market date found: 2025-11-27
+2025-11-28 16:10:47.527 | INFO     | __main__:run:63 - -> Candidates for ranking: 4 stocks
+2025-11-28 16:10:47.527 | INFO     | __main__:run:69 - -> Calculating Top 10 Gainers...
+2025-11-28 16:10:48.272 | INFO     | __main__:run:83 - -> Saving rankings to PostgreSQL...
+2025-11-28 16:14:33.377 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.
+2025-11-28 16:14:33.549 | SUCCESS  | __main__:run:90 - Synced 'stock_rankings' successfully.
+2025-11-28 16:14:39.653 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 16:14:39.863 | DEBUG    | src.utils.config_loader:_load_config:23 - [ConfigLoader] Successfully loaded config from /home/hungluu12/Work/Projects/VietnamBankPredictML/config/settings.yaml
+2025-11-28 16:14:39.891 | INFO     | src.api.app:lifespan:32 - ✅API: Connected to PostgreSQL successfully.
+2025-11-28 16:15:33.927 | INFO     | src.api.app:lifespan:40 - API: Database connection closed.

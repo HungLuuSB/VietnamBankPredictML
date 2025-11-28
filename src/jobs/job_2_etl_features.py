@@ -95,9 +95,7 @@ def run():
         df_final = df_final.fillna(0.0, subset=[col_name])
     
     df_final = df_final.withColumn("target_price", lag("close", -1).over(w_target))
-
-    df_final.orderBy(col("date").desc()) \
-            .show(20, truncate=False)
+    """
     logger.info("-> Writing FULL history to PostgreSQL (Including Today)...")
     df_for_postgres = df_final.na.drop(subset=["close", "date"])
     unique_symbols = [row.symbol for row in df_for_postgres.select("symbol").distinct().collect()]
@@ -108,7 +106,6 @@ def run():
         "driver": db_conf['jdbc_driver_path']
     }
     cols_for_api = ["date", "open", "high", "low", "close", "volume"]
-    """
     for symbol in unique_symbols:
         table_name = re.sub(r"[^a-zA-Z0-9]", "", symbol)
         try:
@@ -136,6 +133,8 @@ def run():
         .partitionBy("symbol") \
         .parquet(PROCESSED_PATH)
 
+    df_for_training.orderBy(col("date").desc()) \
+            .show(20, truncate=False)
     logger.success("[Job 2] Pipeline Completed Successfully.")
 
 if __name__ == "__main__":

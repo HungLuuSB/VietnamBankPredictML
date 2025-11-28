@@ -71,7 +71,6 @@ def run():
         count = df.count()
         logger.info(f"   Asset: {asset} | Rows: {count}")
         if count > 0:
-            # In ra 5 ngày mới nhất của mã này xem có dữ liệu không
             df.orderBy(col("date").desc()).show(5)
         else:
             logger.warning(f"   ⚠️ {asset} IS EMPTY! Check Backfill or Symbol Name.")
@@ -114,21 +113,6 @@ def run():
         logger.warning("No valid latest data found (Maybe missing EMA_50 due to insufficient history?). Exiting.")
         return
 
-    logger.info("-> Calculating Top Rankings...")
-    df_rankings = df_latest_features.select("symbol", "returns_1d", "date") \
-        .orderBy(col("returns_1d").desc()).limit(10)
-        
-    df_rank_export = df_rankings \
-        .withColumn("metric_type", lit("tssl_1d")) \
-        .withColumnRenamed("returns_1d", "metric_value") \
-        .select("symbol", "metric_value", "metric_type", "date")
-
-    try:
-        df_rank_export.write.jdbc(url=JDBC_URL, table="stock_rankings", mode="overwrite", properties=DB_PROPS)
-        logger.success("Synced 'stock_rankings'.")
-    except Exception as e:
-        logger.error(f"Failed to save rankings: {e}")
-
     logger.info("-> Running Predictions...")
     predictions_list = []
     rows = df_latest_features.collect()
@@ -152,7 +136,6 @@ def run():
         except Exception as e:
             logger.warning(f"   [{stock}] Predict error: {e}")
 
-    # 3. Save Predictions
     if predictions_list:
         schema_pred = StructType([
             StructField("stock_code", StringType(), True),

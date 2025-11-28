@@ -31,7 +31,7 @@ def train_model_for_stock(spark, df_all, symbol: str, model_base_path: str, feat
     logger.info(f"   + Train set: {train_data.count()} rows (Past)")
     logger.info(f"   + Test set:  {test_data.count()} rows (Future)")
 
-    train_data, test_data = df_stock.randomSplit([0.8, 0.2], seed=42)
+    #train_data, test_data = df_stock.randomSplit([0.8, 0.2], seed=42)
 
     assembler = VectorAssembler(
         inputCols=feature_cols, 
@@ -59,11 +59,15 @@ def train_model_for_stock(spark, df_all, symbol: str, model_base_path: str, feat
     try:
         model = pipeline.fit(train_data)
         predictions = model.transform(test_data)
+        evaluator_mae = RegressionEvaluator(labelCol="target_price", predictionCol="prediction", metricName="mae")
+        evaluator_mse = RegressionEvaluator(labelCol="target_price", predictionCol="prediction", metricName="mse")
         evaluator_rmse = RegressionEvaluator(labelCol="target_price", predictionCol="prediction", metricName="rmse")
         evaluator_r2 = RegressionEvaluator(labelCol="target_price", predictionCol="prediction", metricName="r2")
+        mae = evaluator_mae.evaluate(predictions)
+        mse = evaluator_mse.evaluate(predictions)
         rmse = evaluator_rmse.evaluate(predictions)
         r2 = evaluator_r2.evaluate(predictions)
-        logger.info(f"[{symbol}] Training Success. RMSE: {rmse:,.2f} | R2: {r2:.4f}")
+        logger.info(f"[{symbol}] Training Success. MAE: {mae:,.2f} | MSE: {mse:,.2f} |RMSE: {rmse:,.2f} | R2: {r2:.4f}")
         save_path = f"{model_base_path}/{symbol}_lr_model"
         model.write().overwrite().save(save_path)
         logger.info(f"[{symbol}] Model saved to: {save_path}")

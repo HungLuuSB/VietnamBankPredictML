@@ -1,3 +1,4 @@
+#streamlit run src/dashboard/app.py
 import streamlit as st
 import pandas as pd
 import requests

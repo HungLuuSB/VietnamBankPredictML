@@ -9,7 +9,7 @@ class VnStockCollector(BaseCollectorModel):
     def fetch_data(self, symbol: str, start_date: str= "2010-01-01", end_date: str = date.today().isoformat()):
         logger.info(f"[VnStock] Fetching historical data for {symbol} from {start_date} to {end_date}...")
         try:
-            stock = Vnstock().stock(symbol=symbol.upper())
+            stock = Vnstock().stock(symbol=symbol.upper(), source="VCI")
             df = stock.quote.history(
                 start=start_date,
                 end=end_date,
